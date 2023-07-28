@@ -21,7 +21,8 @@
                             class="form-control form-control-sm"
                         />
                     </div>
-                        <p class="invalid-feedback" id="usernameErrorField" style="display: none"></p>
+                    <p class="invalid-feedback" id="usernameErrorField" style="display: none"></p>
+                    <p class="valid-feedback" id="usernameCheckingField" style="display: none">Checking...</p>
                     <div class="mb-2">
                         <input
                             type="email"
@@ -31,6 +32,8 @@
                             class="form-control form-control-sm"
                         />
                     </div>
+                    <p class="invalid-feedback" id="emailErrorField" style="display: none"></p>
+                    <p class="valid-feedback" id="emailCheckingField" style="display: none">Checking...</p>
                     <div class="mb-2">
                         <input
                             type="password"
@@ -40,7 +43,7 @@
                             class="form-control form-control-sm"
                         />
                     </div>
-                    <small class="float-end py-2">SHOW</small>
+                    <small id="passwordVisibilityToggle" class="float-end py-2 toggle-password-visibility">SHOW</small>
                     <input type="submit" value="Register" class=" btn btn-primary w-100">
                 </form>
                 </div>
@@ -49,5 +52,7 @@
         <div class="col-md-4"></div>
     </div>
 
+
 <script src="{% static 'js/register.js' %}"></script>
+<script src="{% static 'css/main.css' %}"></script>
 {% endblock %}

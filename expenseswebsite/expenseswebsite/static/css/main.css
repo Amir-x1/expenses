@@ -1,4 +1,10 @@
-
+.toggle-password-visibility{
+  cursor: pointer;
+  transition: all;
+}
+.toggle-password-visibility:hover{
+  transform: scale(1.2);
+}
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -70,3 +76,4 @@
 .bd-mode-toggle {
     z-index: 1500;
 }
+
