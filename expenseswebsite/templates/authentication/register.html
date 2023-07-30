@@ -12,39 +12,54 @@
                         <h4>Register for free</h4>
                     </div>
                     <form action="" method="post">
-                    <div class="mb-2">
-                        <input
-                            type="text"
-                            name="username"
-                            placeholder="username"
-                            id="usernameField"
-                            class="form-control form-control-sm"
-                        />
-                    </div>
-                    <p class="invalid-feedback" id="usernameErrorField" style="display: none"></p>
-                    <p class="valid-feedback" id="usernameCheckingField" style="display: none">Checking...</p>
-                    <div class="mb-2">
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            id="emailField"
-                            class="form-control form-control-sm"
-                        />
-                    </div>
-                    <p class="invalid-feedback" id="emailErrorField" style="display: none"></p>
-                    <p class="valid-feedback" id="emailCheckingField" style="display: none">Checking...</p>
-                    <div class="mb-2">
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            id="passwordField"
-                            class="form-control form-control-sm"
-                        />
-                    </div>
-                    <small id="passwordVisibilityToggle" class="float-end py-2 toggle-password-visibility">SHOW</small>
-                    <input type="submit" value="Register" class=" btn btn-primary w-100">
+                        {% csrf_token %}
+                        {% include "partials/_messages.html" %}
+                        <div class="mb-2">
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="username"
+                                id="usernameField"
+                                class="form-control form-control-sm"
+                                value="{{ filedValues.username }}"
+                            />
+                        </div>
+                        <p class="invalid-feedback" id="usernameErrorField" style="display: none"></p>
+                        <p class="valid-feedback" id="usernameCheckingField" style="display: none">Checking...</p>
+                        <div class="mb-2">
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                id="emailField"
+                                class="form-control form-control-sm"
+                                value="{{ filedValues.email }}"
+                            />
+                        </div>
+                        <p class="invalid-feedback" id="emailErrorField" style="display: none"></p>
+                        <p class="valid-feedback" id="emailCheckingField" style="display: none">Checking...</p>
+                        <div class="mb-2">
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Password"
+                                id="passwordField"
+                                class="form-control form-control-sm"
+                            />
+                        </div>
+                        <div class="mb-2">
+                            <input
+                                type="password"
+                                name="rePassword"
+                                placeholder="Repeat Password"
+                                id="repeatPasswordField"
+                                class="form-control form-control-sm"
+                            />
+                        </div>
+                        <p class="invalid-feedback" id="passwordErrorField" style="display: none">Password not same!</p>
+                        <p class="invalid-feedback" id="shortPasswordField" style="display: none">Password must be grater than 7 characters!</p>
+                        <small id="passwordVisibilityToggle" class="float-end py-2 toggle-password-visibility">SHOW</small>
+                        <input type="submit" value="Register" disabled="disabled" class=" btn btn-primary w-100" id="submitBtn">
                 </form>
                 </div>
             </div>

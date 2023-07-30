@@ -4,6 +4,9 @@ import json
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from validate_email import validate_email
+from django.contrib import messages
+from django.core.mail import send_mail
+
 
 
 # Create your views here.
@@ -34,3 +37,40 @@ class EmailValidationView(View):
 class RegistrationView(View):
     def get(self, request):
         return render(request, 'authentication/register.html')
+
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        context = {
+            'fieldValues': request.POST
+        }
+        if not User.objects.filter(username=username).exists():
+            if not User.objects.filter(email=email).exists():
+                if len(password) >= 8:
+                    # user = User.objects.create_user(username=username, email=email)
+                    # user.set_password(password)
+                    # user.is_active = False
+                    # user.save()
+                    email_subject = 'Activate your account'
+                    email_body = 'hello'
+
+                    send_mail(
+                        email_subject,
+                        email_body,
+                        "amirdjangotestmail@gmail.com",
+                        [email],
+                        fail_silently=False,
+                    )
+
+                    messages.success(request, 'User created successfully')
+                    return render(request, 'authentication/register.html')
+                else:
+                    messages.error(request, 'Password must be more than 6 characters!')
+                    return render(request, 'authentication/register.html', context)
+            else:
+                messages.error(request, 'Email already taken!', context)
+                return render(request, 'authentication/register.html')
+        else:
+            messages.error(request, 'Username already taken!')
+            return render(request, 'authentication/register.html', context)
