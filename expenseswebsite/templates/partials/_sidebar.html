@@ -55,14 +55,18 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
+
                 Settings
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#door-closed"/></svg>
-                Sign out
-              </a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <a class="nav-link d-flex align-items-center " href="#">
+                    <svg class="bi"><use xlink:href="#door-closed"/></svg>
+                    <input type="submit" value="Sign out" class="nav-link">
+                    </a>
+                </form>
             </li>
           </ul>
         </div>

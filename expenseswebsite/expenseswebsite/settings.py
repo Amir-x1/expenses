@@ -74,8 +74,8 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# load_dotenv(r"C:\Users\Amir\PycharmProjects\expenses\expenseswebsite\expenseswebsite\.env")  # For Dell
-load_dotenv(r"C:\PyProjects\expenses\expenseswebsite\expenseswebsite\.env")  # For X1
+load_dotenv(r"C:\Users\Amir\PycharmProjects\expenses\expenseswebsite\expenseswebsite\.env")  # For Dell
+# load_dotenv(r"C:\PyProjects\expenses\expenseswebsite\expenseswebsite\.env")  # For X1
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

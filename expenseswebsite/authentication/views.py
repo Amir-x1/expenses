@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 import json
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.contrib import auth
 from validate_email import validate_email
 from django.contrib import messages
 from django.core.mail import send_mail
-
 
 
 # Create your views here.
@@ -48,10 +48,10 @@ class RegistrationView(View):
         if not User.objects.filter(username=username).exists():
             if not User.objects.filter(email=email).exists():
                 if len(password) >= 8:
-                    # user = User.objects.create_user(username=username, email=email)
-                    # user.set_password(password)
+                    user = User.objects.create_user(username=username, email=email)
+                    user.set_password(password)
                     # user.is_active = False
-                    # user.save()
+                    user.save()
                     email_subject = 'Activate your account'
                     email_body = 'hello'
 
@@ -64,7 +64,7 @@ class RegistrationView(View):
                     )
 
                     messages.success(request, 'User created successfully')
-                    return render(request, 'authentication/register.html')
+                    return redirect('login')
                 else:
                     messages.error(request, 'Password must be more than 6 characters!')
                     return render(request, 'authentication/register.html', context)
@@ -74,3 +74,30 @@ class RegistrationView(View):
         else:
             messages.error(request, 'Username already taken!')
             return render(request, 'authentication/register.html', context)
+
+
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'authentication/login.html')
+
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+
+        if username and password:
+            user = auth.authenticate(username=username, password=password)
+            if user:
+                auth.login(request, user)
+                return redirect('/')
+            messages.error(request, 'Username or password is wrong!')
+            return redirect('login')
+        messages.error(request, 'Please fill all fields')
+        return redirect('login')
+
+
+class LogoutView(View):
+    def post(self, request):
+        auth.logout(request)
+        # messages.set_level(request, None)
+        messages.success(request, 'You are successfully logged out')
+        return redirect('login')
